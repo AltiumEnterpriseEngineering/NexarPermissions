@@ -4,20 +4,35 @@ This project provides the ability to add permissions to Folders and Projects via
 This is not intended for production use, simply as a minimal example to get you started using the Nexar API.
 
 ## Setup
-Clone this repository to your local environment: `git clone https://github.com/a-penning/permissions_scripts.git`
-Get the submodules: `git submodule update --init --recursive`
-Set up a virtual environment: `python3 -m venv venv`
-Activate the virtual environment: `source venv/bin/activate`
-Install the requirements: `python3 -m pip install -r requirements.txt`
-Create your .env file: `cp .env.example .env`
-Populate your .env file with your workspace URL, and client credentials from: 'https://portal.nexar.com'
+- Clone this repository to your local environment: `git clone https://github.com/a-penning/permissions_scripts.git`
+- Get the submodules: `git submodule update --init --recursive`
+- Set up a virtual environment: `python3 -m venv venv`
+- Activate the virtual environment: `source venv/bin/activate`
+- Install the requirements: `python3 -m pip install -r requirements.txt`
+- Create your .env file: `cp .env.example .env`
+- Populate your .env file with your workspace URL, and client credentials from: 'https://portal.nexar.com'
 
 ## Running the scripts
-Make the projects folder read-only to all workspace members: `python3 folder_permissions.py -f "Projects" --anyone --read-only`
-Make the projects folder writable by the Engineers group: `python3 folder_permissions.py -f "Projects" --group "Engineers"`
-Make the projects folder writable by a specific user: `python3 folder_permissions.py -f "Projects" --user "my.user@email.com"`
-Give the Librarians group write access to a specific project: `python3 project_permissions.py -p "Sample - Kame-1" --group "Librarians"`
-Give a user read access to a specific project: `python3 project_permissions.py -p "Sample - Kame-1" --user "my.user@email.com" --read-only`
+Make the projects folder read-only to all workspace members: 
+```
+python3 folder_permissions.py -f "Projects" --anyone --read-only
+```
+Make the projects folder writable by the Engineers group: 
+```
+python3 folder_permissions.py -f "Projects" --group "Engineers"
+```
+Make the projects folder writable by a specific user: 
+```
+python3 folder_permissions.py -f "Projects" --user "my.user@email.com"
+```
+Give the Librarians group write access to a specific project: 
+```
+python3 project_permissions.py -p "Sample - Kame-1" --group "Librarians"
+```
+Give a user read access to a specific project: 
+```
+python3 project_permissions.py -p "Sample - Kame-1" --user "my.user@email.com" --read-only
+```
 
 ## Folder Permissions Script Help
 ```
