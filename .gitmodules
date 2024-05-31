@@ -1,0 +1,3 @@
+[submodule "nexar_token_py"]
+	path = nexar_token_py
+	url = https://github.com/NexarDeveloper/nexar-token-py
