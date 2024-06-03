@@ -44,6 +44,7 @@ def main():
     options = Options()
 
     # Fetch the access token
+    print("Fetching the access token. Please sign in using the browser...")
     access_token = None
     try:
         access_token = get_token(options.client_id, options.client_secret, options.scopes)["access_token"]
