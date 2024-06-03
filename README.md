@@ -4,7 +4,7 @@ This project provides the ability to add permissions to Folders and Projects via
 This is not intended for production use, simply as a minimal example to get you started using the Nexar API.
 
 ## Setup
-- Clone this repository to your local environment: `git clone https://github.com/a-penning/permissions_scripts.git`
+- Clone this repository to your local environment: `git clone https://github.com/AltiumEnterpriseEngineering/NexarPermissions.git`
 - Get the submodules: `git submodule update --init --recursive`
 - Set up a virtual environment: `python3 -m venv venv`
 - Activate the virtual environment: `source venv/bin/activate`
