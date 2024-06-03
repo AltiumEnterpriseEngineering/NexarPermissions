@@ -1,4 +1,4 @@
-# Project and Folder Permissions
+# Nexar Permissions
 
 This project provides the ability to add permissions to Folders and Projects via the Nexar API.
 This is not intended for production use, simply as a minimal example to get you started using the Nexar API.
