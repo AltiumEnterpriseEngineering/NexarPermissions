@@ -174,6 +174,29 @@ def add_anyone_permission_to_folder(access_token, folder_id, read_only=False):
     else:
         print(response.json()['errors'])
         return False
+    
+def clear_all_permissions_on_folder(access_token, folder_id):
+    query = '''
+        mutation ClearPermissions($folder_id: ID!) {
+            desUpdateFolderPermissions(
+                input: {
+                folderId: $folder_id
+                permissions: []
+                }
+            ) {
+                folderId
+            }
+        }    
+    '''
+    variables = {
+        "folder_id": folder_id
+    }
+    response = send_graphql_request(query, variables, access_token)
+    if response.status_code == 200
+        return True
+    else:
+        print(response.json()['errors'])
+        return False
 
 def add_group_permission_to_project(access_token, project_id, group_id, read_only=False):
     query = '''
@@ -265,6 +288,30 @@ def add_anyone_permission_to_project(access_token, project_id, read_only=False):
     response = send_graphql_request(query, variables, access_token)
     # Check if the response was successful, and the project ID matches
     if response.status_code == 200 and response.json()['data']['desUpdateProjectPermissions']['projectId'] == project_id:
+        return True
+    else:
+        print(response.json()['errors'])
+        return False
+
+def clear_all_permissions_on_project(access_token, project_id):
+    query = '''
+        mutation ClearPermissions($project_id: ID!) {
+            desUpdateProjectPermissions(
+                input: {
+                projectId: $project_id
+                replaceExisting: true,
+                permissions: []
+                }
+            ) {
+                projectId
+            }
+        }    
+    '''
+    variables = {
+        "project_id": project_id
+    }
+    response = send_graphql_request(query, variables, access_token)
+    if response.status_code == 200
         return True
     else:
         print(response.json()['errors'])
