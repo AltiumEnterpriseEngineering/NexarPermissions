@@ -181,6 +181,7 @@ def clear_all_permissions_on_folder(access_token, folder_id):
             desUpdateFolderPermissions(
                 input: {
                 folderId: $folder_id
+                replaceExisting: true,
                 permissions: []
                 }
             ) {
