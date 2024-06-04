@@ -2,6 +2,7 @@
 
 This project provides the ability to add permissions to Folders and Projects via the Nexar API.
 This is not intended for production use, simply as a minimal example to get you started using the Nexar API.
+Tested with Python 3.12.3.
 
 ## Setup
 - Clone this repository to your local environment: `git clone https://github.com/AltiumEnterpriseEngineering/NexarPermissions.git`
