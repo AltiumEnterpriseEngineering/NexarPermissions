@@ -46,7 +46,7 @@ options:
   -w WORKSPACE, --workspace WORKSPACE
                         The URL of the workspace
   -f FOLDER, --folder FOLDER
-                        The name of the FOLDER which permissions should be modified
+                        The path of the FOLDER which permissions should be modified
   -g GROUP, --group GROUP
                         The name of the GROUP to add permissions for
   -u USER, --user USER  The email of the USER to add permissions for

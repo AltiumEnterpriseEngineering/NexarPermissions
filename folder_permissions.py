@@ -32,7 +32,7 @@ class Options:
         # Add the argument parser
         args = argparse.ArgumentParser(description='Add permissions to a folder')
         args.add_argument('-w', '--workspace', help='The URL of the workspace')
-        args.add_argument('-f', '--folder', help='The name of the FOLDER which permissions should be modified', required=True)
+        args.add_argument('-f', '--folder', help='The path of the FOLDER which permissions should be modified', required=True)
         args.add_argument('-g', '--group', help='The name of the GROUP to add permissions for')
         args.add_argument('-u', '--user', help='The email of the USER to add permissions for')
         args.add_argument('-a', '--anyone', help='Control the permissions for all workspace members', action='store_true')
