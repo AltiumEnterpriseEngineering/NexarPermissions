@@ -39,7 +39,7 @@ class Options:
         args.add_argument('-r', '--read-only', help='Set the permission as read-only', action='store_false')
         return args.parse_args()
 
-def group_actions(options, access_token, folder_id, folder_name):
+def group_actions(options, access_token, folder_id, folder_path):
     group_name = options.group
     group_id = None
     if group_name is not None:
@@ -51,11 +51,11 @@ def group_actions(options, access_token, folder_id, folder_name):
 
     if group_id is not None:
         if (add_group_permission_to_folder(access_token, folder_id, group_id, options.read_only)):
-            print(f"{ "Read" if not options.read_only else "Write" } permission added successfully for group '{group_name}' on folder '{folder_name}'!")
+            print(f"{ "Read" if not options.read_only else "Write" } permission added successfully for group '{group_name}' on folder '{folder_path}'!")
         else:
-            print(f"Failed to add permission for group '{group_name}' on folder '{folder_name}'.")
+            print(f"Failed to add permission for group '{group_name}' on folder '{folder_path}'.")
 
-def user_actions(options, access_token, folder_id, folder_name):
+def user_actions(options, access_token, folder_id, folder_path):
     user_email = options.user
     user_id = None
     if user_email is not None:
@@ -67,15 +67,15 @@ def user_actions(options, access_token, folder_id, folder_name):
     
     if user_id is not None:
         if (add_user_permission_to_folder(access_token, folder_id, user_id, options.read_only)):
-            print(f"{ "Read" if not options.read_only else "Write" } permission added successfully for user '{user_email}' on folder '{folder_name}'!")
+            print(f"{ "Read" if not options.read_only else "Write" } permission added successfully for user '{user_email}' on folder '{folder_path}'!")
         else:
-            print(f"Failed to add permission for user '{user_email}' on folder '{folder_name}'.")
+            print(f"Failed to add permission for user '{user_email}' on folder '{folder_path}'.")
 
-def anyone_actions(options, access_token, folder_id, folder_name):
+def anyone_actions(options, access_token, folder_id, folder_path):
     if (add_anyone_permission_to_folder(access_token, folder_id, options.read_only)):
-        print(f"{ "Read" if not options.read_only else "Write" } permission added successfully for all workspace members on folder '{folder_name}'!")
+        print(f"{ "Read" if not options.read_only else "Write" } permission added successfully for all workspace members on folder '{folder_path}'!")
     else:
-        print(f"Failed to add permission for all workspace members on folder '{folder_name}'.")
+        print(f"Failed to add permission for all workspace members on folder '{folder_path}'.")
 
 def main():
     # Load all the relevant environment and command line options
@@ -101,20 +101,20 @@ def main():
     print(f"Workspace URL: {options.workspace}")
 
     # Find the folder
-    folder_name = options.folder
-    folder_id = get_folder_id(access_token, options.workspace, folder_name)
+    folder_path = options.folder
+    folder_id = get_folder_id(access_token, options.workspace, folder_path)
     if folder_id is None:
-        print(f"Folder '{folder_name}' not found.")
+        print(f"Folder '{folder_path}' not found.")
         exit()
-    print(f"Folder ID for '{folder_name}': {folder_id}")
+    print(f"Folder ID for '{folder_path}': {folder_id}")
 
     # Perform the action
     if options.group is not None:
-        group_actions(options, access_token, folder_id, folder_name)
+        group_actions(options, access_token, folder_id, folder_path)
     elif options.user is not None:
-        user_actions(options, access_token, folder_id, folder_name)
+        user_actions(options, access_token, folder_id, folder_path)
     elif options.anyone is not None:
-        anyone_actions(options, access_token, folder_id, folder_name)
+        anyone_actions(options, access_token, folder_id, folder_path)
 
 if __name__ == "__main__":
     main()
