@@ -192,7 +192,7 @@ def clear_all_permissions_on_folder(access_token, folder_id):
         "folder_id": folder_id
     }
     response = send_graphql_request(query, variables, access_token)
-    if response.status_code == 200
+    if response.status_code == 200:
         return True
     else:
         print(response.json()['errors'])
@@ -311,7 +311,7 @@ def clear_all_permissions_on_project(access_token, project_id):
         "project_id": project_id
     }
     response = send_graphql_request(query, variables, access_token)
-    if response.status_code == 200
+    if response.status_code == 200:
         return True
     else:
         print(response.json()['errors'])
