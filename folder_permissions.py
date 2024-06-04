@@ -39,6 +39,44 @@ class Options:
         args.add_argument('-r', '--read-only', help='Set the permission as read-only', action='store_false')
         return args.parse_args()
 
+def group_actions(options, access_token, folder_id, folder_name):
+    group_name = options.group
+    group_id = None
+    if group_name is not None:
+        group_id = get_group_id(access_token, options.workspace, group_name)
+        if group_id is None:
+            print(f"Group '{group_name}' not found.")
+        else:
+            print(f"Group ID for '{group_name}': {group_id}")
+
+    if group_id is not None:
+        if (add_group_permission_to_folder(access_token, folder_id, group_id, options.read_only)):
+            print(f"{ "Read" if not options.read_only else "Write" } permission added successfully for group '{group_name}' on folder '{folder_name}'!")
+        else:
+            print(f"Failed to add permission for group '{group_name}' on folder '{folder_name}'.")
+
+def user_actions(options, access_token, folder_id, folder_name):
+    user_email = options.user
+    user_id = None
+    if user_email is not None:
+        user_id = get_user_id(access_token, options.workspace, user_email)
+        if user_id is None:
+            print(f"User '{user_email}' not found.")
+        else:
+            print(f"User ID for '{user_email}': {user_id}")
+    
+    if user_id is not None:
+        if (add_user_permission_to_folder(access_token, folder_id, user_id, options.read_only)):
+            print(f"{ "Read" if not options.read_only else "Write" } permission added successfully for user '{user_email}' on folder '{folder_name}'!")
+        else:
+            print(f"Failed to add permission for user '{user_email}' on folder '{folder_name}'.")
+
+def anyone_actions(options, access_token, folder_id, folder_name):
+    if (add_anyone_permission_to_folder(access_token, folder_id, options.read_only)):
+        print(f"{ "Read" if not options.read_only else "Write" } permission added successfully for all workspace members on folder '{folder_name}'!")
+    else:
+        print(f"Failed to add permission for all workspace members on folder '{folder_name}'.")
+
 def main():
     # Load all the relevant environment and command line options
     options = Options()
@@ -70,44 +108,13 @@ def main():
         exit()
     print(f"Folder ID for '{folder_name}': {folder_id}")
 
-    # Actions for group permissions
-    group_name = options.group
-    group_id = None
-    if group_name is not None:
-        group_id = get_group_id(access_token, options.workspace, group_name)
-        if group_id is None:
-            print(f"Group '{group_name}' not found.")
-        else:
-            print(f"Group ID for '{group_name}': {group_id}")
-
-    if group_id is not None:
-        if (add_group_permission_to_folder(access_token, folder_id, group_id, options.read_only)):
-            print(f"{ "Read" if not options.read_only else "Write" } permission added successfully for group '{group_name}' on folder '{folder_name}'!")
-        else:
-            print(f"Failed to add permission for group '{group_name}' on folder '{folder_name}'.")
-    
-    # Actions for user permissions
-    user_email = options.user
-    user_id = None
-    if user_email is not None:
-        user_id = get_user_id(access_token, options.workspace, user_email)
-        if user_id is None:
-            print(f"User '{user_email}' not found.")
-        else:
-            print(f"User ID for '{user_email}': {user_id}")
-    
-    if user_id is not None:
-        if (add_user_permission_to_folder(access_token, folder_id, user_id, options.read_only)):
-            print(f"{ "Read" if not options.read_only else "Write" } permission added successfully for user '{user_email}' on folder '{folder_name}'!")
-        else:
-            print(f"Failed to add permission for user '{user_email}' on folder '{folder_name}'.")
-
-    # Actions for anyone permissions
-    if options.anyone:
-        if (add_anyone_permission_to_folder(access_token, folder_id, options.read_only)):
-            print(f"{ "Read" if not options.read_only else "Write" } permission added successfully for all workspace members on folder '{folder_name}'!")
-        else:
-            print(f"Failed to add permission for all workspace members on folder '{folder_name}'.")
+    # Perform the action
+    if options.group is not None:
+        group_actions(options, access_token, folder_id, folder_name)
+    elif options.user is not None:
+        user_actions(options, access_token, folder_id, folder_name)
+    elif options.anyone is not None:
+        anyone_actions(options, access_token, folder_id, folder_name)
 
 if __name__ == "__main__":
     main()
